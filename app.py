@@ -12,6 +12,19 @@ app.secret_key = "512345"
 
 # TODO: Fill in methods and routes
 
+@app.route("/trending")
+def trending():
+   trending_internships = db_session.query(Internship).all()
+   cards = []
+   for internship in trending_internships:
+        cards.append({
+            "title":internship.name,
+            "image_url": db_session.join(Tag, StudentTag).where(Tag.id == StudentTag.tag_id) #cHANGE THIS UP
+
+            
+        })
+   return render_template("trending.html", cards=cards)
+
 
 @app.route("/",methods=["GET","POST"])
 def home():
