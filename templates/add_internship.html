@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html>
-	{% extends "base.html" %}
 
 <head>
 	<meta charset="UTF-8">
-	<title>Interests</title>
+	<title>Add Internship</title>
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<!-- Custom CSS -->
-
 	<link rel="stylesheet" href="../static/style/style.css">
-	<link rel="stylesheet" href="../static/style/trending_style.css">
-
-
 
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,7 +19,6 @@
 </head>
 
 <body>
-
 	<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
 		<img class="#" src="../static/logo.png">
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
@@ -37,7 +31,7 @@
 					<a class="nav-link" href="{{ url_for('trending') }}">Trending</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" href="{{ url_for('interests') }}">Interests</a>
+					<a class="nav-link active" href="{{ url_for('add_internship') }}">Add Internship</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="{{ url_for('home') }}">Log Out</a>
@@ -46,22 +40,50 @@
 		</div>
 	</nav>
 
+
 	<!-- Blue polygon background -->
-	{% block content%}
+
 	<div class="blue-triangle"></div>
 	<div class="rectangle"></div>
-	{% endblock %}
-	
 
+
+
+	<!-- Login form -->
 	<div class="input-form">
 		<div class="col-md-6 col-lg-4">
-			<form action="/interests" method="POST">
-				<h2 class="text-center mb-4">Internship Search</h2>
+			<form action="/add-internship" method="POST">
+				<h2 class="text-center mb-4">Add An Internship</h2>
 				<div class="form-group">
-					<label for="internship-search">Search For An Internship</label>
-					<input type="text" class="form-control" id="internship-search" name="internship_search" required>
+					<label for="internship-name">Internship Name</label>
+					<input type="text" class="form-control" id="internship-name" name="internship_name" required>
 				</div>
-				<button type="submit" class="btn btn-primary btn-block mb-3">Search</button>
+				<div class="form-group">
+					<label for="duration">Duration</label>
+					<input type="duration" class="form-control" id="duration" name="duration" required>
+				</div>
+				<div class="form-group">
+					<label for="start-date">Start Date (Month Day, Year)</label>
+					<input type="start-date" class="form-control" id="start-date" name="start_date" required>
+				</div>
+				<div class="form-group">
+					<label for="end-date">End Date (Month Day, Year)</label>
+					<input type="end-date" class="form-control" id="end-date" name="end_date" required>
+				</div>
+				<div class="form-group">
+					<label for="location">Location</label>
+					<input type="location" class="form-control" id="location" name="location" required>
+				</div>
+				<div class="form-group">
+					<label for="tags">Tags</label>
+					<input type="tags" class="form-control" id="tags" name="tags"
+						placeholder="Enter tag information to describe your internship in this format: tag1/image_url_1,tag_2/image_url_2,..."
+						required>
+				</div>
+				<div class="form-group">
+					<label for="password">Link to Website</label>
+					<input type="link" class="form-control" id="link" name="link" required>
+				</div>
+				<button type="submit" class="btn btn-primary btn-block mb-3">Add Internship</button>
 				<div>
 					{% with messages = get_flashed_messages() %}
 					{% if messages %}
@@ -73,55 +95,12 @@
 				</div>
 			</form>
 		</div>
-	</div>
-	<!--User's Feed-->
-	<h2 class="text-center mb-4">My Feed</h2>
-	<div class="container">
-		{% for card in cards %}
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="card">
-					<div class="tag_image">
-						<img src="{{ card.image_url }}" alt="Image">
-					</div>
 
-					<div class="card_title">#{{ card.counter }}: {{ card.title }}</div>
-					<p class="internship-description">
-						Duration: {{ card.duration }}<br>
-						Start Date: {{ card.start_date }}<br>
-						End Date: {{ card.end_date }}<br>
-						Location: {{ card.location }}<br>
-						Students Interested: {{ card.num_interested }}
-					</p>
-					<a href="{{ card.link }}" class="non-search-btn btn-primary learn-more" target="_blank">Learn
-						More</a>
-					<form action="/trending" method="post">
-						<input type="hidden" name="internship_name" value="{{ card.title }}">
-						{% if is_student %}
-						<button type="submit" id="interested-button" name="submit" {% if clicked %}class="clicked"
-							disabled{% endif %}>Interested</button>
-						{% endif %}
-					</form>
-				</div>
-			</div>
-		</div>
-		{% endfor %}
 	</div>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+	<!-- Bootstrap JavaScript -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

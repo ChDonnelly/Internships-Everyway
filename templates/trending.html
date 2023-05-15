@@ -1,76 +1,97 @@
 <!DOCTYPE html>
 <html>
+{% extends "base.html" %}
+
 <head>
-    <meta charset="UTF-8">
-    <title>Login Page</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="../static/style/trending_style.css">
+  <meta charset="UTF-8">
+  {% block title %} Trending {% endblock %}
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <!-- Custom CSS -->
 
-    <title>Navbar Example</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="../static/style/style.css">
+  <link rel="stylesheet" href="../static/style/trending_style.css">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </head>
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+  <img class="#" src="../static/logo.png">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link active" href="{{ url_for('trending') }}">Trending</a>
+      </li>
+      {% if is_student %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('interests') }}">Interests</a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('add_internship') }}">Add Internship</a>
+      </li>
+      {% endif %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">IE</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="{{ url_for('trending') }}">Trending</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('interests') }}">Interest</a>
-            </li>
-          </ul>
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Log Out</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+<!-- Blue polygon background -->
+<div class="blue-triangle"></div>
+<div class="rectangle"></div>
+
+<h1>Trending Internships</h1>
+
+<div class="container">
 
 
-    <!-- Blue polygon background -->
-    <div class="blue-triangle"></div>
-    <div class = "rectangle"></div>
-
-
-
-    <h1>Trending Internships</h1>
-
-    <div class = "container">
-
-
-      {% for card in cards %}
+  {% for card in cards %}
   <div class="row">
+
     <div class="col-sm-12">
+
       <div class="card">
-        <img src="{{ card.image_url }}" alt="Image">
-        <h2>{{ card.title }}</h2>
-        <a href="#" class="btn btn-primary">Learn More</a>
+
+        <div class="tag_image">
+          <img src="{{ card.image_url }}" alt="Image">
+        </div>
+
+        <div class="card_title">#{{ card.counter }}: {{ card.title }}</div>
+        <p class="internship-description">
+          Duration: {{ card.duration }}<br>
+          Start Date: {{ card.start_date }}<br>
+          End Date: {{ card.end_date }}<br>
+          Location: {{ card.location }}<br>
+          Students Interested: {{ card.num_interested }}
+        </p>
+        <a href="{{ card.link }}" class="non-search-btn btn-primary learn-more" target="_blank">Learn More</a>
+        <form action="/trending" method="post">
+          <input type="hidden" name="internship_name" value="{{ card.title }}">
+          {% if is_student %}
+          <button type="submit" id="interested-button" name="submit" {% if clicked %}class="clicked" disabled{% endif
+            %}>Interested</button>
+          {% endif %}
+        </form>
       </div>
     </div>
   </div>
-{% endfor %}
- 
-
-    </div>
-
-    
-
-
-
-
-
-  </body>
+  {% endfor %}
+</div>
+</div>
+</div>
+</div>
+</body>
