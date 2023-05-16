@@ -168,6 +168,6 @@ def add_internship():
 
 if __name__ == "__main__":
     init_db()
+    #Add administrators and internships so the website is functional for demonstration
     add_internships()
     app.run(debug=True, port=5002)
-

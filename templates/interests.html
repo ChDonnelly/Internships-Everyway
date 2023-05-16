@@ -94,13 +94,9 @@
 					</p>
 					<a href="{{ card.link }}" class="non-search-btn btn-primary learn-more" target="_blank">Learn
 						More</a>
-					<form action="/trending" method="post">
+					 <form action="/interests" method="post">
 						<input type="hidden" name="internship_name" value="{{ card.title }}">
-						{% if is_student %}
-						<button type="submit" id="interested-button" name="submit" {% if clicked %}class="clicked"
-							disabled{% endif %}>Interested</button>
-						{% endif %}
-					</form>
+					</form> 
 				</div>
 			</div>
 		</div>
