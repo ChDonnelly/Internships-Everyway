@@ -1,7 +1,7 @@
 
 
 
-/* Blue polygon background */
+/* Style Blue polygon background */
 .blue-triangle {
   width: 0px;
   height:0px;
@@ -10,6 +10,10 @@
   bottom: 0;
   right: 0;
   position: fixed;
+}
+
+p{
+  font-family:ti
 }
 
 
@@ -22,7 +26,12 @@
   background-color: #AEC5EB;
 }
 
+/* Style the text (code modified from ChatGPT) */
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
 
+/* Center the divs involving user input */
 .input-form {
 	display: flex;
     justify-content: center;
@@ -31,8 +40,6 @@
 
 
 /* Style the form inputs and buttons */
-
-
 .navbar-nav {
 	display: flex;
 	justify-content: space-between;

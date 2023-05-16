@@ -60,7 +60,7 @@
     
   }
   
-/*For buttons that aren't within search and user authentication-related forms*/
+/*The rule below is for buttons that aren't within search and user authentication-related forms*/
 .non-search-btn {
     position: absolute;
     bottom: 10px;
