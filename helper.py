@@ -5,6 +5,7 @@ from models import *
 def get_cards(internships):
     '''
     Create a card for each internship in the list of internships
+
     internships: list of internship objects
     Source: This code was modified from ChatGPT
     '''
@@ -31,6 +32,7 @@ def add_student_tags(student,tag_input):
     Given a list of several tags' contents (inputted by the user) and a student object,
     create new tag objects, add them to the database, and connect these
     tag objects to the given user
+    
     student: student object
     tag_input: list of strings where each string is a tag's content
     '''

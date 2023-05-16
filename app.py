@@ -4,12 +4,13 @@ from models import *
 from internship_manager import *
 from helper import *
 
-from sqlalchemy import desc #CHECK THIS
+from sqlalchemy import desc, or_
+
 
 app = Flask(__name__)
 
 # TODO: Change the secret key
-app.secret_key = "512345"
+app.secret_key = "vRghFoiVXCFNulgLLg=="
 
 
 # TODO: Fill in methods and routes
@@ -104,23 +105,33 @@ def signup():
         password = request.form.get('password')
         new_user = None
         if admin_box:
-            new_user = Administrator(username,password)
-            db_session.add(new_user)
-            db_session.commit()
+            #Lines 109 and 122: These lines of code were modified from ChatGPT
+            if not db_session.query(Administrator).where(or_(Administrator.username == username, Administrator.password == password)).first():
+                new_user = Administrator(username,password)
+                db_session.add(new_user)
+                db_session.commit()
+            else:
+                flash("Username or password already exists","warning")
+                return render_template("signup.html")
         else:
             '''
             If user is a student, ensure that their interest tags exist in the database.
             This allows for their interests.html page to be populated with internships that
             have tags corresponding to this user's tags.
             '''
-            new_user = Student(username,password)
-            interests = request.form.get('interests').split(",")
-            tag_exists = add_student_tags(new_user,interests)
-            db_session.add(new_user)
-            db_session.commit()
+            if not db_session.query(Student).where(or_(Student.username == username, Student.password == password)).first():
+                new_user = Student(username,password)
+                interests = request.form.get('interests').split(",")
+                tag_exists = add_student_tags(new_user,interests)
+            else:
+                flash("Username or password already exists","warning")
+                return render_template("signup.html")
             if not tag_exists:
                 flash("One or more tags do not yet exist. Try Again.","warning")
                 return render_template("signup.html")
+            else:
+                db_session.add(new_user)
+                db_session.commit()
         return redirect(url_for("home"))
             
 

@@ -1,9 +1,71 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8">
-    <title> <title>{% block title %}{% endblock %}</title></title>
+	<meta charset="UTF-8">
+	<title>Login</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="../static/style/style.css">
+
+	
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <img class="#" src="../static/logo.png">
+    </nav>
+    <!-- Blue polygon background -->
+    <div class="blue-triangle"></div>
+    <div class = "rectangle"></div>
+    {% block content %}
+    
+        <!-- Login form -->
+        <div class="input-form">
+                <div class="col-md-6 col-lg-4">
+                    <form action = "/" method = "POST">
+                        <h2 class="text-center mb-4">Log In</h2>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <button type="submit" class="non-search-btn btn-primary btn-block mb-3">Log in</button>
+                        <div class="text-center">
+                            <p>Don't have an account? <a href="{{ url_for('signup') }}">Sign up</a></p>
+                        </div>
+                        <div>
+                            {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <div class="alert alert-info">
+                                    <ul>
+                                        {% for message in messages %}
+                                            <li>{{ message }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        {% endwith %}
+                        </div>
+                    </form>
+                </div>
+            
+        </div>
+    {% endblock %}
+
+	<!-- Bootstrap JavaScript -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
